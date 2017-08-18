@@ -9,6 +9,7 @@ namespace lesson7_postage_calculator
 {
     public partial class Default : System.Web.UI.Page
     {
+        // Set constant values for shipping multipliers
         private double GROUND_SHIPPING_MULTIPLIER = 0.15;
         private double AIR_SHIPPING_MULTIPLIER = 0.25;
         private double NEXT_DAY_SHIPPING_MULTIPLIER = 0.45;
@@ -48,6 +49,11 @@ namespace lesson7_postage_calculator
             displayPostageCost(calculatePostageCost(validateData(), determineShippingMultiplier()));
         }
 
+         
+        /* Determine if the user has entered valid numbers in the fields for width, height and length. 
+           Length is not required so it is set to a default value if not provided.
+           The numbers are returned as elements of an array.
+        */
         private double[] validateData()
         {
             double[] numberArray = new double[3];
@@ -75,6 +81,7 @@ namespace lesson7_postage_calculator
             return numberArray;
         }
 
+        // Return the appropriate shipping multiplier value based on which radio button is selected
         private double determineShippingMultiplier()
         {
             if (groundRadioButton.Checked)
@@ -84,7 +91,8 @@ namespace lesson7_postage_calculator
             else
                 return NEXT_DAY_SHIPPING_MULTIPLIER;
         }
-
+        // Calculate and return the total cost of postage based on the width, height and length provided
+        // as well as the shipping multiplier determined by the user's choice of shipping method.
         private double calculatePostageCost(double[] numArray, double shippingMultiplier)
         {
             double postageCost = numArray[0] * numArray[1] * numArray[2] * shippingMultiplier;
@@ -92,6 +100,7 @@ namespace lesson7_postage_calculator
             return postageCost;
         }
 
+        // Display the calculated cost of postage to the screen formatted as currency.
         private void displayPostageCost(double postageCost)
         {
             if (postageCost != 0)
